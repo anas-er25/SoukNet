@@ -12,7 +12,7 @@ const verifyEmailTemplate = ({ name, url }) => {
             <p style="margin-top: 20px; font-size: 14px; color: #555;">Si vous n'avez pas demandé cette inscription, ignorez ce message.</p>
         </div>
         <div style="text-align: center; font-size: 12px; color: #888; margin-top: 20px;">
-            <p>© 2024 Votre Application. Tous droits réservés.</p>
+            <p>© ${new Date().getFullYear()} Votre Application. Tous droits réservés.</p>
         </div>
     </div>
     `;
