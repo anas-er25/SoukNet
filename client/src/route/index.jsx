@@ -2,6 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
 import SearchPage from "../pages/SearchPage";
+import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
+import ForgotPassword from "../pages/Auth/ForgotPassword";
+import OtpVerification from "../pages/Auth/OtpVerification";
 
 const router = createBrowserRouter([
   {
@@ -14,8 +18,24 @@ const router = createBrowserRouter([
       },
       {
         path: "search",
-        element: <SearchPage/>,
-      }
+        element: <SearchPage />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "verification-otp",
+        element: <OtpVerification />,
+      },
     ],
   },
 ]);
