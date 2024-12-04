@@ -44,6 +44,9 @@ const Login = () => {
           email: "",
           password: "",
         });
+        
+          localStorage.setItem("accesstoken", response.data.data.accesstoken);
+          localStorage.setItem("refreshtoken", response.data.data.refreshtoken);
         navigate("/");
       }
     } catch (error) {

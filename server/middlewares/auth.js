@@ -16,7 +16,7 @@ const auth = async (req, res, next) => {
     );
     if (!decoded) {
       return res
-        .status(403)
+        .status(401)
         .json({ message: "Token expiré", error: true, success: false });
     }
     req.userId = decoded.id;

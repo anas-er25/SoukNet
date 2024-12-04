@@ -385,12 +385,10 @@ export const resetPasswordController = async (req, res) => {
     }
 
     const salt = await bcryptjs.genSalt(10);
-    const hashPass = await bcryptjs.hash(newPassword, salt);
+    const hashPassword = await bcryptjs.hash(newPassword, salt);
 
-    const updateUser = await UserModel.findByIdAndUpdate(user._id, {
-      newPassword: hashPass,
-      // forgot_password_otp: "",
-      // forgot_password_expiry: "",
+    const update = await UserModel.findOneAndUpdate(user._id, {
+      password: hashPassword,
     });
     return res.status(200).json({
       message: "Mot de passe réinitialisé avec succès",
@@ -431,7 +429,7 @@ export const refreshTokenController = async (req, res) => {
       });
     }
     const userId = verifyToken?.id;
-    
+
     if (!userId) {
       return res.status(401).json({
         message: "Utilisateur non trouvé",
@@ -441,7 +439,7 @@ export const refreshTokenController = async (req, res) => {
     }
     const newAccessToken = await generatedAccessToken(userId);
     console.log("newAccessToken:" + newAccessToken);
-    
+
     const accesstokenOptions = {
       httpOnly: true,
       secure: true,
@@ -454,8 +452,8 @@ export const refreshTokenController = async (req, res) => {
       error: false,
       success: true,
       data: {
-        accessToken: newAccessToken
-      }
+        accessToken: newAccessToken,
+      },
     });
   } catch (error) {
     res.status(500).json({
