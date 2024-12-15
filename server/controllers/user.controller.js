@@ -134,6 +134,9 @@ export const loginController = async (req, res) => {
     }
     const accesstoken = await generatedAccessToken(user._id);
     const refreshtoken = await generatedRefreshToken(user._id);
+    const updateUser = await UserModel.findByIdAndUpdate(user?._id, {
+      last_login_date: new Date(),
+    });
     const cookiesOption = {
       httpOnly: true,
       secure: true,
@@ -342,6 +345,12 @@ export const verifyForgotPasswordOtpController = async (req, res) => {
     //     forgot_password_expiry: "",
     //   });
     // }
+
+    const updateUser = await UserModel.findByIdAndUpdate(user?._id, {
+      forgot_password_otp: "",
+      forgot_password_expiry: "",
+    });
+
     return res.status(200).json({
       message: "Code d'activation confirmé",
       error: false,
@@ -458,6 +467,28 @@ export const refreshTokenController = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+};
+
+// get login user details
+export const userDetails = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await UserModel.findById(userId).select(
+      "-password -refresh_token"
+    );
+    return res.status(200).json({
+      message: "Détails de l'utilisateur",
+      error: false,
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Quelque chose ne va pas",
       error: true,
       success: false,
     });
