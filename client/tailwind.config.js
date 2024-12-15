@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary-200": "#ffb300",
-        "primary-100": "#ffc929",
-        "secondary-200": "#00b050",
-        "secondary-100": "#0b1a78",
+        "primary-200": "#F18C31", // Orange clair
+        "primary-100": "#FFB84D", // Jaune doré plus doux
+        "secondary-200": "#21B1B5", // Teal
+        "secondary-100": "#63D5D9", // Teal clair
       },
       spacing: {
         12: "3rem",
@@ -16,4 +16,3 @@ export default {
   },
   plugins: [],
 };
-

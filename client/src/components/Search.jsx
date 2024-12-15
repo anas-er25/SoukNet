@@ -25,12 +25,12 @@ const Search = () => {
         {isMobile && isSearchPage ? (
           <Link
             to={"/"}
-            className="flex justify-center items-center h-full p-2 m-1 group-focus-within:text-primary-200 bg-white rounded-full shadow-md"
+            className="flex items-center justify-center h-full p-2 m-1 bg-white rounded-full shadow-md group-focus-within:text-primary-200"
           >
             <FaArrowLeft size={20} />
           </Link>
         ) : (
-          <button className="flex justify-center items-center h-full p-3 group-focus-within:text-primary-200">
+          <button className="flex items-center justify-center h-full p-3 group-focus-within:text-primary-200">
             <FaSearch size={20} />
           </button>
         )}
@@ -39,7 +39,7 @@ const Search = () => {
         {!isSearchPage ? (
           <div
             onClick={redirectToSearchPage}
-            className="w-full h-full flex items-center"
+            className="flex items-center w-full h-full"
           >
             <TypeAnimation
               sequence={[
@@ -87,7 +87,7 @@ const Search = () => {
           <div className="w-full h-full">
             <input
               type="text"
-              className="w-full h-full p-3 text-sm text-neutral-700 outline-none focus:ring-slate-600"
+              className="w-full h-full p-3 text-sm outline-none text-neutral-700 focus:ring-slate-600"
               placeholder="Rechercher..."
               autoFocus
             />

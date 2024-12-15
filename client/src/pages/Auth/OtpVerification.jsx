@@ -13,9 +13,9 @@ const OtpVerification = () => {
   const location = useLocation();
   useEffect(() => {
     if (!location?.state?.email) {
-      navigate("/forgot-password")
+      navigate("/forgot-password");
     }
-  },[])
+  }, []);
 
   const valideValue = data.every((el) => el);
   const handleSubmit = async (e) => {
@@ -91,7 +91,9 @@ const OtpVerification = () => {
           <button
             disabled={!valideValue}
             className={` ${
-              valideValue ? "bg-green-500 hover:bg-green-600" : "bg-gray-500"
+              valideValue
+                ? "bg-secondary-200 hover:bg-secondary-100"
+                : "bg-gray-500"
             }  text-white py-2 rounded font-semibold my-3 tracking-wide `}
           >
             Vérifier l&apos;OTP
@@ -101,7 +103,7 @@ const OtpVerification = () => {
           Vous avez déjà un compte?{" "}
           <Link
             to={"/login"}
-            className="font-semibold text-secondary-200 hover:text-green-700"
+            className="font-semibold text-secondary-200 hover:text-secondary-100"
           >
             Connectez-vous ici.
           </Link>

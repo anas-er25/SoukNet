@@ -9,7 +9,7 @@ const ForgotPassword = () => {
   const [data, setData] = useState({
     email: "",
   });
-    
+
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,14 +35,13 @@ const ForgotPassword = () => {
         return;
       }
       if (response.data.success) {
-          toast.success(response.data.message);
-          navigate("/verification-otp", {
-            state: data,
-          });
+        toast.success(response.data.message);
+        navigate("/verification-otp", {
+          state: data,
+        });
         setData({
           email: "",
         });
-          
       }
     } catch (error) {
       AxiosToastError(error);
@@ -72,7 +71,9 @@ const ForgotPassword = () => {
           <button
             disabled={!valideValue}
             className={` ${
-              valideValue ? "bg-green-500 hover:bg-green-600" : "bg-gray-500"
+              valideValue
+                ? "bg-secondary-200 hover:bg-secondary-100"
+                : "bg-gray-500"
             }  text-white py-2 rounded font-semibold my-3 tracking-wide `}
           >
             Envoyer OTP
@@ -82,7 +83,7 @@ const ForgotPassword = () => {
           Vous avez déjà un compte?{" "}
           <Link
             to={"/login"}
-            className="font-semibold text-secondary-200 hover:text-green-700"
+            className="font-semibold text-secondary-200 hover:text-secondary-100"
           >
             Connectez-vous ici.
           </Link>
