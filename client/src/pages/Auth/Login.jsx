@@ -5,29 +5,30 @@ import toast from "react-hot-toast";
 import Axios from "../../utils/Axios";
 import AxiosToastError from "../../utils/AxiosToastError";
 import SummaryApi from "../../common/SummaryApi";
-
+import getUserDetails from "../../utils/getUserDetails";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../../redux/userSlice";
 const Login = () => {
   const [data, setData] = useState({
-    
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((preve) => {
       return {
         ...preve,
         [name]: value,
-       
       };
     });
   };
   const valideValue = Object.values(data).every((el) => el);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await Axios({
         ...SummaryApi.login,
@@ -44,9 +45,12 @@ const Login = () => {
           email: "",
           password: "",
         });
-        
-          localStorage.setItem("accesstoken", response.data.data.accesstoken);
-          localStorage.setItem("refreshtoken", response.data.data.refreshtoken);
+
+        localStorage.setItem("accesstoken", response.data.data.accesstoken);
+        localStorage.setItem("refreshtoken", response.data.data.refreshtoken);
+        const userDetails = await getUserDetails();
+        dispatch(setUserDetails(userDetails.data));
+
         navigate("/");
       }
     } catch (error) {
@@ -54,9 +58,9 @@ const Login = () => {
     }
   };
   return (
-    <section className="w-full container mx-auto px-2">
-      <div className="bg-white my-4 w-full max-w-lg mx-auto rounded p-7">
-        <p className="text-2xl text-center font-semibold">
+    <section className="container w-full px-2 mx-auto">
+      <div className="w-full max-w-lg mx-auto my-4 bg-white rounded p-7">
+        <p className="text-2xl font-semibold text-center">
           Bienvenue à Souk<span className="text-secondary-200">Net</span>
         </p>
         <form onSubmit={handleSubmit} className="grid gap-4 mt-6">
@@ -69,13 +73,13 @@ const Login = () => {
               value={data.email}
               onChange={handleChange}
               placeholder="Entrer votre Email"
-              className="bg-blue-50 p-2 border rounded outline-none focus:border-secondary-200"
+              className="p-2 border rounded outline-none bg-blue-50 focus:border-secondary-200"
               required
             />
           </div>
           <div className="grid gap-1">
             <label htmlFor="password">Mot de passe:</label>
-            <div className="bg-blue-50 p-2 border rounded flex items-center focus-within:border-secondary-200">
+            <div className="flex items-center p-2 border rounded bg-blue-50 focus-within:border-secondary-200">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -106,7 +110,9 @@ const Login = () => {
           <button
             disabled={!valideValue}
             className={` ${
-              valideValue ? "bg-green-500 hover:bg-green-600" : "bg-gray-500"
+              valideValue
+                ? "bg-secondary-200 hover:bg-secondary-100"
+                : "bg-gray-500"
             }  text-white py-2 rounded font-semibold my-3 tracking-wide `}
           >
             Se connecter
@@ -116,7 +122,7 @@ const Login = () => {
           Vous n&apos;avez pas un compte?{" "}
           <Link
             to={"/register"}
-            className="font-semibold text-secondary-200 hover:text-green-700"
+            className="font-semibold text-secondary-200 hover:text-secondary-100"
           >
             Inscrivez-vous ici.
           </Link>

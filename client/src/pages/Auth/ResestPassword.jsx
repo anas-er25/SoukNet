@@ -126,7 +126,9 @@ const ResestPassword = () => {
           <button
             disabled={!valideValue}
             className={` ${
-              valideValue ? "bg-green-500 hover:bg-green-600" : "bg-gray-500"
+              valideValue
+                ? "bg-secondary-200 hover:bg-secondary-100"
+                : "bg-gray-500"
             }  text-white py-2 rounded font-semibold my-3 tracking-wide `}
           >
             Réinitialiser
